@@ -2,6 +2,7 @@ import express from "express";
 import * as dotenv from "dotenv";
 import mongoose from "mongoose";
 import { journeyRouter } from "./routes/journeys";
+import { stationRouter } from "./routes/stations";
 
 dotenv.config();
 
@@ -22,6 +23,7 @@ let db;
 
 // Middleware
 app.use("/journeys", journeyRouter);
+app.use("/stations", stationRouter);
 
 app.listen(port, () => {
   console.log(`Listening to port: ${port}`);
