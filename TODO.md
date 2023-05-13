@@ -5,9 +5,10 @@ https://github.com/solita/dev-academy-2023-exercise
 [x] - Don't import journeys that lasted for less than ten seconds
 [x] - Don't import journeys that covered distances shorter than 10 meters
 
+B - Backend, F - Frontend
 Recommended
-[] - List journeys
-[] - Pagination
+[B] - List journeys
+[B] - Pagination
 
 Additional
 [] - Order per column

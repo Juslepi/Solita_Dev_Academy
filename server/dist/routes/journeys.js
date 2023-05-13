@@ -21,8 +21,10 @@ exports.journeyRouter = router;
 router.get("/:page/:limit", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const page = Number.parseInt(req.params.page) || 1;
     const limit = Number.parseInt(req.params.limit) || 10;
+    const { orderBy } = req.query;
     const journeys = yield journeySchema_1.Journey.find({})
         .skip((page - 1) * limit)
-        .limit(limit);
+        .limit(limit)
+        .sort({ Departure: -1 });
     res.send(journeys);
 }));
