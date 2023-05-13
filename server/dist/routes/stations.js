@@ -30,7 +30,7 @@ router.get("/:page/:limit", (req, res) => __awaiter(void 0, void 0, void 0, func
 }));
 // Get Single Station
 router.get("/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { id } = req.params;
+    const id = Number.parseInt(req.params.id) || 1;
     const station = yield stationSchema_1.Station.findOne({ ID: id });
     if (station === null || station === undefined) {
         return res.send({ msg: "Station not found" }).status(404);

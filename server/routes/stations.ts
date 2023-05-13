@@ -18,7 +18,7 @@ router.get("/:page/:limit", async (req, res) => {
 
 // Get Single Station
 router.get("/:id", async (req, res) => {
-  const { id } = req.params;
+  const id = Number.parseInt(req.params.id) || 1;
   const station = await Station.findOne({ ID: id });
 
   if (station === null || station === undefined) {
