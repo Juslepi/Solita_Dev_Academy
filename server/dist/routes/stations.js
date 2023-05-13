@@ -27,3 +27,9 @@ router.get("/:page/:limit", (req, res) => __awaiter(void 0, void 0, void 0, func
         .sort({ ID: 1 });
     res.send(stations);
 }));
+// Get Single Station
+router.get("/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.params;
+    const station = yield stationSchema_1.Station.findOne({ ID: id });
+    res.send(station);
+}));

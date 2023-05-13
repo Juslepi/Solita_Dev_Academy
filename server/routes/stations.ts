@@ -15,4 +15,12 @@ router.get("/:page/:limit", async (req, res) => {
   res.send(stations);
 });
 
+// Get Single Station
+router.get("/:id", async (req, res) => {
+  const { id } = req.params;
+  const station = await Station.findOne({ ID: id });
+
+  res.send(station);
+});
+
 export { router as stationRouter };
