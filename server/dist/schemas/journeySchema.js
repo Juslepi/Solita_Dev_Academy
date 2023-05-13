@@ -7,13 +7,12 @@ exports.Journey = void 0;
 const mongoose_1 = __importDefault(require("mongoose"));
 const { Schema } = mongoose_1.default;
 const journeySchema = new Schema({
-    depature: String,
-    returnDate: String,
-    departureStationId: Number,
-    departureStationName: String,
-    returnStationId: Number,
-    returnStationName: String,
-    distance: Number,
-    duration: Number,
+    Departure: { type: Date, required: true },
+    Return: { type: Date, required: true },
+    "Departure station id": { type: Number, required: true },
+    "Departure station name": { type: String, required: true },
+    "Return station id": { type: Number, required: true },
+    "Return station name": { type: String, required: true },
+    "Covered distance (m)": { type: Number, required: true },
 });
 exports.Journey = mongoose_1.default.model("Journey", journeySchema);
