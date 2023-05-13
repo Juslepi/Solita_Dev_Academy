@@ -24,6 +24,9 @@ let db;
 // Middleware
 app.use("/journeys", journeyRouter);
 app.use("/stations", stationRouter);
+app.use("*", (req, res) => {
+  res.send("Page not found").status(404);
+});
 
 app.listen(port, () => {
   console.log(`Listening to port: ${port}`);
