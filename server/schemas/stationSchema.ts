@@ -9,6 +9,8 @@ const stationSchema = new mongoose.Schema({
   Capacity: { type: Number, required: true },
   x: { type: Number, required: true },
   y: { type: Number, required: true },
+  DeparturesCount: Number,
+  ReturnsCount: Number,
 });
 
 export const Station = mongoose.model("Station", stationSchema);

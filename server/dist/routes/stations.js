@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.stationRouter = void 0;
 const express_1 = __importDefault(require("express"));
 const stationSchema_1 = require("../schemas/stationSchema");
+const journeySchema_1 = require("../schemas/journeySchema");
 const router = express_1.default.Router();
 exports.stationRouter = router;
 // GET Stations
@@ -31,5 +32,20 @@ router.get("/:page/:limit", (req, res) => __awaiter(void 0, void 0, void 0, func
 router.get("/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     const station = yield stationSchema_1.Station.findOne({ ID: id });
-    res.send(station);
+    if (station === null || station === undefined) {
+        return res.send({ msg: "Station not found" }).status(404);
+    }
+    // Journeys starting from location
+    const departuresCount = yield journeySchema_1.Journey.find({
+        ["Departure station id"]: id,
+    })
+        .count()
+        .exec();
+    station.DeparturesCount = departuresCount;
+    // Journeys ending at location
+    const returnsCount = yield journeySchema_1.Journey.find({
+        ["Return station id"]: id,
+    }).count();
+    station.ReturnsCount = returnsCount;
+    res.send(station).status(200);
 }));

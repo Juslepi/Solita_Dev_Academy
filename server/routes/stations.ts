@@ -1,5 +1,6 @@
 import express from "express";
 import { Station } from "../schemas/stationSchema";
+import { Journey } from "../schemas/journeySchema";
 
 const router = express.Router();
 
@@ -20,7 +21,25 @@ router.get("/:id", async (req, res) => {
   const { id } = req.params;
   const station = await Station.findOne({ ID: id });
 
-  res.send(station);
+  if (station === null || station === undefined) {
+    return res.send({ msg: "Station not found" }).status(404);
+  }
+
+  // Journeys starting from location
+  const departuresCount = await Journey.find({
+    ["Departure station id"]: id,
+  })
+    .count()
+    .exec();
+  station.DeparturesCount = departuresCount;
+
+  // Journeys ending at location
+  const returnsCount = await Journey.find({
+    ["Return station id"]: id,
+  }).count();
+  station.ReturnsCount = returnsCount;
+
+  res.send(station).status(200);
 });
 
 export { router as stationRouter };

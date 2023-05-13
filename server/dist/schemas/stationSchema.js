@@ -14,5 +14,7 @@ const stationSchema = new mongoose_1.default.Schema({
     Capacity: { type: Number, required: true },
     x: { type: Number, required: true },
     y: { type: Number, required: true },
+    DeparturesCount: Number,
+    ReturnsCount: Number,
 });
 exports.Station = mongoose_1.default.model("Station", stationSchema);
