@@ -18,7 +18,12 @@ const stationSchema_1 = require("../schemas/stationSchema");
 const router = express_1.default.Router();
 exports.stationRouter = router;
 // GET Stations
-router.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const stations = yield stationSchema_1.Station.find({});
+router.get("/:page/:limit", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const page = Number.parseInt(req.params.page) || 1;
+    const limit = Number.parseInt(req.params.limit) || 10;
+    const stations = yield stationSchema_1.Station.find({})
+        .skip((page - 1) * limit)
+        .limit(limit)
+        .sort({ ID: 1 });
     res.send(stations);
 }));
