@@ -17,17 +17,17 @@ Additional
 
 Station list
 Recommended
-[] - List all the stations
-[] - Additional
-[] - Pagination
+[b] - List all the stations
+Additional
+[b] - Pagination
 [] - Searching
 
 Single station view
 Recommended
-[] - Station name
-[] - Station address
-[] - Total number of journeys starting from the station
-[] - Total number of journeys ending at the station
+[b] - Station name
+[b] - Station address
+[b] - Total number of journeys starting from the station
+[b] - Total number of journeys ending at the station
 
 Additional
 [] - Station location on the map
