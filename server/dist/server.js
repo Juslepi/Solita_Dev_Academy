@@ -38,6 +38,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const dotenv = __importStar(require("dotenv"));
 const mongoose_1 = __importDefault(require("mongoose"));
+const journeys_1 = require("./routes/journeys");
 dotenv.config();
 const app = (0, express_1.default)();
 const port = process.env.PORT || 3000;
@@ -53,6 +54,8 @@ let db;
         console.error(e);
     }
 }))();
+// Middleware
+app.use("/journeys", journeys_1.journeyRouter);
 app.listen(port, () => {
     console.log(`Listening to port: ${port}`);
 });

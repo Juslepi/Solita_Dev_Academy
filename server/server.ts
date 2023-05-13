@@ -20,6 +20,9 @@ let db;
   }
 })();
 
+// Middleware
+app.use("/journeys", journeyRouter);
+
 app.listen(port, () => {
   console.log(`Listening to port: ${port}`);
 });

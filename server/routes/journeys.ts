@@ -4,9 +4,14 @@ import { Journey } from "../schemas/journeySchema";
 const router = express.Router();
 
 // GET journeys
-router.get("/", async (req, res) => {
-  const journey = await Journey.findOne({ _id: "645e3dbd021a01bf14bc3e88" });
-  res.send(journey);
+router.get("/:page/:limit", async (req, res) => {
+  const page = Number.parseInt(req.params.page) || 1;
+  const limit = Number.parseInt(req.params.limit) || 10;
+  const journeys = await Journey.find({})
+    .skip((page - 1) * limit)
+    .limit(limit);
+
+  res.send(journeys);
 });
 
 export { router as journeyRouter };

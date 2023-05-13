@@ -18,7 +18,11 @@ const journeySchema_1 = require("../schemas/journeySchema");
 const router = express_1.default.Router();
 exports.journeyRouter = router;
 // GET journeys
-router.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const journey = yield journeySchema_1.Journey.findOne({ _id: "645e3dbd021a01bf14bc3e88" });
-    res.send(journey);
+router.get("/:page/:limit", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const page = Number.parseInt(req.params.page) || 1;
+    const limit = Number.parseInt(req.params.limit) || 10;
+    const journeys = yield journeySchema_1.Journey.find({})
+        .skip((page - 1) * limit)
+        .limit(limit);
+    res.send(journeys);
 }));
