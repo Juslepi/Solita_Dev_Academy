@@ -7,7 +7,7 @@ import { stationRouter } from "./routes/stations";
 dotenv.config();
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 const db_uri = process.env.MONGODB_URI || "";
 let db;
 
