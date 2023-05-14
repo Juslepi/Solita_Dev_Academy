@@ -34,9 +34,9 @@ export default function Home() {
         {journeys.map((journey: Journey) => (
           <div key={journey._id}>{`${journey["Departure station name"]} to ${
             journey["Return station name"]
-          } distance: ${
-            Math.round((journey["Covered distance (m)"] / 1000) * 100) / 100
-          }km duration`}</div>
+          } distance: ${(journey["Covered distance (m)"] / 1000).toFixed(
+            2
+          )}km duration`}</div>
         ))}
         <div className={styles.toolbar}>
           <button onClick={() => setPage((currentPage) => currentPage - 1)}>
