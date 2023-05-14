@@ -29,7 +29,7 @@ export default function Home() {
   }, [page]);
 
   return (
-    <main className={styles.main}>
+    <main className={`center_container`}>
       <div className="">
         {journeys.map((journey: Journey) => (
           <div key={journey._id}>{`${journey["Departure station name"]} to ${
