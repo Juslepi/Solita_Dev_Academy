@@ -3,6 +3,7 @@ import * as dotenv from "dotenv";
 import mongoose from "mongoose";
 import { journeyRouter } from "./routes/journeys";
 import { stationRouter } from "./routes/stations";
+const cors = require("cors");
 
 dotenv.config();
 
@@ -22,6 +23,9 @@ let db;
 })();
 
 // Middleware
+app.use(cors());
+
+// Routes
 app.use("/journeys", journeyRouter);
 app.use("/stations", stationRouter);
 app.use("*", (req, res) => {

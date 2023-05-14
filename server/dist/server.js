@@ -40,9 +40,10 @@ const dotenv = __importStar(require("dotenv"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const journeys_1 = require("./routes/journeys");
 const stations_1 = require("./routes/stations");
+const cors = require("cors");
 dotenv.config();
 const app = (0, express_1.default)();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 const db_uri = process.env.MONGODB_URI || "";
 let db;
 (() => __awaiter(void 0, void 0, void 0, function* () {
@@ -56,6 +57,8 @@ let db;
     }
 }))();
 // Middleware
+app.use(cors());
+// Routes
 app.use("/journeys", journeys_1.journeyRouter);
 app.use("/stations", stations_1.stationRouter);
 app.use("*", (req, res) => {
