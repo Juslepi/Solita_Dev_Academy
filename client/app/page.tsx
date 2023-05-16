@@ -30,7 +30,7 @@ export default function Home() {
   }, [page]);
 
   return (
-    <main className={`center_container`}>
+    <main className={`${styles.container} center_container`}>
       <table className={styles.journeys_table}>
         <thead>
           <tr>
@@ -59,16 +59,16 @@ export default function Home() {
             </tr>
           </tbody>
         ))}
-        <div className={styles.toolbar}>
-          <button onClick={() => setPage((currentPage) => currentPage - 1)}>
-            {"<"}
-          </button>
-          Page: {page}
-          <button onClick={() => setPage((currentPage) => currentPage + 1)}>
-            {">"}
-          </button>
-        </div>
       </table>
+      <div className={styles.toolbar}>
+        <button onClick={() => setPage((currentPage) => currentPage - 1)}>
+          {"<"}
+        </button>
+        Page: {page}
+        <button onClick={() => setPage((currentPage) => currentPage + 1)}>
+          {">"}
+        </button>
+      </div>
     </main>
   );
 }
