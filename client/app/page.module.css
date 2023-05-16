@@ -20,6 +20,14 @@
   padding: 0.3rem;
 }
 
+.small_cell {
+  width: 10%;
+}
+
+.large_cell {
+  width: 40%;
+}
+
 .toolbar {
   margin-top: 1rem;
 }
