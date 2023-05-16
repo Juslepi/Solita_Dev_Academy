@@ -1,12 +1,13 @@
 "use client";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import date from "date-and-time";
 import styles from "./page.module.css";
 
 export type Journey = {
   _id: string;
-  departure: string;
-  return: string;
+  Departure: string;
+  Return: string;
   ["Departure station id"]: number;
   ["Departure station name"]: string;
   ["Return station id"]: number;
