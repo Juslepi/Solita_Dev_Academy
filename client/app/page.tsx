@@ -31,13 +31,31 @@ export default function Home() {
 
   return (
     <main className={`center_container`}>
-      <div className="">
+      <table className="">
         {journeys.map((journey: Journey) => (
-          <div key={journey._id}>{`${journey["Departure station name"]} to ${
-            journey["Return station name"]
-          } distance: ${(journey["Covered distance (m)"] / 1000).toFixed(
-            2
-          )}km duration`}</div>
+          <div key={journey._id}>
+            <tr>
+              <th>Departure Station</th>
+              <th>Return Station Station</th>
+              <th>Distance m.</th>
+              <th>Duration min.</th>
+            </tr>
+            <tr>
+              <td>{journey["Departure station name"]}</td>
+              <td>{journey["Return station name"]}</td>
+              <td>{(journey["Covered distance (m)"] / 1000).toFixed(2)}</td>
+              <td>
+                {date
+                  .subtract(
+                    new Date(journey.Return),
+                    new Date(journey.Departure)
+                  )
+                  .toMinutes()
+                  .toFixed(2)
+                  .toString()}
+              </td>
+            </tr>
+          </div>
         ))}
         <div className={styles.toolbar}>
           <button onClick={() => setPage((currentPage) => currentPage - 1)}>
@@ -48,7 +66,7 @@ export default function Home() {
             {">"}
           </button>
         </div>
-      </div>
+      </table>
     </main>
   );
 }
