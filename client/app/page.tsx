@@ -16,7 +16,7 @@ export type Journey = {
 
 export default function Home() {
   const [page, setPage] = useState(1);
-  const [journeys, setJourneys] = useState([]);
+  const [journeys, setJourneys] = useState<Journey[]>([]);
 
   useEffect(() => {
     const getJourneys = async () => {
