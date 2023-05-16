@@ -31,15 +31,17 @@ export default function Home() {
 
   return (
     <main className={`center_container`}>
-      <table className="">
+      <table className={styles.journeys_table}>
+        <thead>
+          <tr>
+            <th>Departure Station</th>
+            <th>Return Station Station</th>
+            <th>Distance m.</th>
+            <th>Duration min.</th>
+          </tr>
+        </thead>
         {journeys.map((journey: Journey) => (
-          <div key={journey._id}>
-            <tr>
-              <th>Departure Station</th>
-              <th>Return Station Station</th>
-              <th>Distance m.</th>
-              <th>Duration min.</th>
-            </tr>
+          <tbody className={styles.table_content} key={journey._id}>
             <tr>
               <td>{journey["Departure station name"]}</td>
               <td>{journey["Return station name"]}</td>
@@ -55,7 +57,7 @@ export default function Home() {
                   .toString()}
               </td>
             </tr>
-          </div>
+          </tbody>
         ))}
         <div className={styles.toolbar}>
           <button onClick={() => setPage((currentPage) => currentPage - 1)}>
