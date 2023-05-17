@@ -43,3 +43,28 @@ ul {
   justify-content: center;
   align-items: center;
 }
+
+.table {
+  width: min(90%, 1600px);
+}
+
+.table th {
+  text-align: start;
+  padding: 0.5rem 0.3rem;
+}
+
+.table_content:nth-child(odd) {
+  background-color: var(--secondary-color);
+}
+
+.table_content td {
+  padding: 0.3rem;
+}
+
+.small_cell {
+  width: 10%;
+}
+
+.large_cell {
+  width: 40%;
+}
