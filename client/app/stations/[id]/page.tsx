@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 type PageProps = {
   params: {
     id: string;
@@ -6,26 +8,17 @@ type PageProps = {
 
 const page = async ({ params }: PageProps) => {
   const stationData = await getStation(params.id);
-  const { Name, Address, DepartureCount, ReturnsCount } = stationData;
+  const { Name, Address, DeparturesCount, ReturnsCount } = stationData;
 
   return (
     <div className="center_container">
-      <table>
-        <thead>
-          <th>Name</th>
-          <th>Address</th>
-          <th>Departures</th>
-          <th>Returns</th>
-        </thead>
-        <tbody>
-          <tr>
-            <td>{Name}</td>
-            <td>{Address}</td>
-            <td>{DepartureCount}</td>
-            <td>{ReturnsCount}</td>
-          </tr>
-        </tbody>
-      </table>
+      <div>
+        <h3>{Name}</h3>
+        <p>{Address}</p>
+        <p>Departures: {DeparturesCount}</p>
+        <p>Returns: {ReturnsCount}</p>
+        <Link href={"/stations"}>Back</Link>
+      </div>
     </div>
   );
 };
