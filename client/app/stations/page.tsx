@@ -41,9 +41,9 @@ const Page = () => {
           <tbody className="table_content" key={station._id}>
             <tr>
               <Link href={`/stations/${station.ID}`}>
-                <td>{station.Name}</td>
+                <td className="large_cell">{station.Name}</td>
               </Link>
-              <td>{station.Address}</td>
+              <td className="large_cell">{station.Address}</td>
             </tr>
           </tbody>
         ))}
