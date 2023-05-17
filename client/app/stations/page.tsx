@@ -37,8 +37,6 @@ const Page = () => {
   const sortResults = (sortBy: string) => {
     if (sorting.sort === sortBy) {
       const newOrder = sorting.sortOrder === "asc" ? "desc" : "asc";
-      console.log(newOrder);
-
       setSorting({ ...sorting, sortOrder: newOrder });
     } else {
       setSorting({ ...sorting, sort: sortBy });
