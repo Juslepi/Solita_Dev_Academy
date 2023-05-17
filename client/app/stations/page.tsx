@@ -17,24 +17,41 @@ export interface Station {
 const Page = () => {
   const [page, setPage] = useState(1);
   const [stations, setStations] = useState<Station[]>([]);
+  const [sorting, setSorting] = useState({
+    sort: "Name",
+    sortOrder: "asc",
+  });
 
   useEffect(() => {
     const getStations = async () => {
-      const res = await axios.get(`http://localhost:3001/stations/${page}/10`);
-      console.log(res.data);
+      const res = await axios.get(
+        `http://localhost:3001/stations/${page}/10?sort=${sorting.sort}&sortOrder=${sorting.sortOrder}`
+      );
       setStations(res.data);
     };
 
     getStations();
-  }, [page]);
+  }, [page, sorting]);
+
+  // TODO - Look into this beauty
+  const sortResults = (sortBy: string) => {
+    if (sorting.sort === sortBy) {
+      const newOrder = sorting.sortOrder === "asc" ? "desc" : "asc";
+      console.log(newOrder);
+
+      setSorting({ ...sorting, sortOrder: newOrder });
+    } else {
+      setSorting({ ...sorting, sort: sortBy });
+    }
+  };
 
   return (
     <main className={`${styles.container} center_container`}>
       <table className="table">
         <thead>
           <tr>
-            <th>Station</th>
-            <th>Address</th>
+            <th onClick={() => sortResults("Name")}>Station</th>
+            <th onClick={() => sortResults("Address")}>Address</th>
           </tr>
         </thead>
         {stations.map((station: Station) => (
