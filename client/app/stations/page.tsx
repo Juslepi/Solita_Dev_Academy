@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import styles from "./page.module.css";
+import Link from "next/link";
 
 export interface Station {
   _id: string;
@@ -39,7 +40,9 @@ const Page = () => {
         {stations.map((station: Station) => (
           <tbody className="table_content" key={station._id}>
             <tr>
-              <td>{station.Name}</td>
+              <Link href={`/stations/${station.ID}`}>
+                <td>{station.Name}</td>
+              </Link>
               <td>{station.Address}</td>
             </tr>
           </tbody>
