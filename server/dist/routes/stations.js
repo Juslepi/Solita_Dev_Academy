@@ -28,7 +28,7 @@ router.get("/:page/:limit", (req, res) => __awaiter(void 0, void 0, void 0, func
     const stations = yield stationSchema_1.Station.find({})
         .skip((page - 1) * limit)
         .limit(limit)
-        .sort({ sort: sortOrder });
+        .sort([[sort, sortOrder]]);
     res.send(stations);
 }));
 // Get Single Station

@@ -14,7 +14,7 @@ router.get("/:page/:limit", async (req, res) => {
   const stations = await Station.find({})
     .skip((page - 1) * limit)
     .limit(limit)
-    .sort({ sort: sortOrder });
+    .sort([[sort, sortOrder]]);
 
   res.send(stations);
 });
