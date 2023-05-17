@@ -22,7 +22,6 @@ export default function Home() {
   useEffect(() => {
     const getJourneys = async () => {
       const res = await axios.get(`http://localhost:3001/journeys/${page}/10`);
-      console.log(res.data);
       setJourneys(res.data);
     };
 
