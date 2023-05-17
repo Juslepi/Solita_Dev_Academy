@@ -22,7 +22,7 @@ exports.stationRouter = router;
 router.get("/:page/:limit", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     const sort = ((_a = req.query.sort) === null || _a === void 0 ? void 0 : _a.toString()) || "Name";
-    const sortOrder = req.query.sortOrder === "asc" ? 1 : -1;
+    const sortOrder = req.query.sortOrder === "desc" ? -1 : 1;
     const page = Number.parseInt(req.params.page) || 1;
     const limit = Number.parseInt(req.params.limit) || 10;
     const stations = yield stationSchema_1.Station.find({})
