@@ -55,7 +55,7 @@ export default function Home() {
               Return Station
             </th>
             <th onClick={() => sortResults("Covered+distance+(m)")}>
-              Distance m.
+              Distance km.
             </th>
             <th onClick={() => sortResults("Return+station+name")}>
               Duration min.
