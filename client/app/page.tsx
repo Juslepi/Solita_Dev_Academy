@@ -18,25 +18,48 @@ export type Journey = {
 export default function Home() {
   const [page, setPage] = useState(1);
   const [journeys, setJourneys] = useState<Journey[]>([]);
+  const [sorting, setSorting] = useState({
+    sort: "Name",
+    sortOrder: "asc",
+  });
 
   useEffect(() => {
     const getJourneys = async () => {
-      const res = await axios.get(`http://localhost:3001/journeys/${page}/10`);
+      const res = await axios.get(
+        `http://localhost:3001/journeys/${page}/10?sort=${sorting.sort}&sortOrder=${sorting.sortOrder}`
+      );
       setJourneys(res.data);
     };
 
     getJourneys();
-  }, [page]);
+  }, [page, sorting]);
 
+  // TODO - Look into this beauty
+  const sortResults = (sortBy: string) => {
+    if (sorting.sort === sortBy) {
+      const newOrder = sorting.sortOrder === "asc" ? "desc" : "asc";
+      setSorting({ ...sorting, sortOrder: newOrder });
+    } else {
+      setSorting({ ...sorting, sort: sortBy });
+    }
+  };
   return (
     <main className={`${styles.container} center_container`}>
       <table className="table">
         <thead>
           <tr>
-            <th>Departure Station</th>
-            <th>Return Station</th>
-            <th>Distance m.</th>
-            <th>Duration min.</th>
+            <th onClick={() => sortResults("Departure+station+name")}>
+              Departure Station
+            </th>
+            <th onClick={() => sortResults("Return+station+name")}>
+              Return Station
+            </th>
+            <th onClick={() => sortResults("Covered+distance+(m)")}>
+              Distance m.
+            </th>
+            <th onClick={() => sortResults("Return+station+name")}>
+              Duration min.
+            </th>
           </tr>
         </thead>
         {journeys.map((journey: Journey) => (

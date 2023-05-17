@@ -19,12 +19,16 @@ const router = express_1.default.Router();
 exports.journeyRouter = router;
 // GET journeys
 router.get("/:page/:limit", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
+    let sort = ((_a = req.query.sort) === null || _a === void 0 ? void 0 : _a.toString()) || "Name";
+    sort = sort.replace("+", " ");
+    console.log(sort);
+    const sortOrder = req.query.sortOrder === "desc" ? -1 : 1;
     const page = Number.parseInt(req.params.page) || 1;
     const limit = Number.parseInt(req.params.limit) || 10;
-    const { orderBy } = req.query;
     const journeys = yield journeySchema_1.Journey.find({})
         .skip((page - 1) * limit)
         .limit(limit)
-        .sort({ Departure: -1 });
+        .sort([[sort, sortOrder]]);
     res.send(journeys);
 }));
