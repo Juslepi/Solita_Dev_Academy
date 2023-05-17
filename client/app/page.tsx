@@ -35,7 +35,7 @@ export default function Home() {
         <thead>
           <tr>
             <th>Departure Station</th>
-            <th>Return Station Station</th>
+            <th>Return Station</th>
             <th>Distance m.</th>
             <th>Duration min.</th>
           </tr>
