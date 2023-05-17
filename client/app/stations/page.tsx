@@ -49,7 +49,13 @@ const Page = () => {
         ))}
       </table>
       <div className={styles.toolbar}>
-        <button onClick={() => setPage((currentPage) => currentPage - 1)}>
+        <button
+          onClick={() =>
+            setPage((currentPage) =>
+              currentPage > 1 ? currentPage - 1 : currentPage
+            )
+          }
+        >
           {"<"}
         </button>
         Page: {page}
