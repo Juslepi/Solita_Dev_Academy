@@ -6,12 +6,15 @@ const router = express.Router();
 
 // GET Stations
 router.get("/:page/:limit", async (req, res) => {
+  const sort = req.query.sort?.toString() || "Name";
+  const sortOrder = req.query.sortOrder === "asc" ? 1 : -1;
+
   const page = Number.parseInt(req.params.page) || 1;
   const limit = Number.parseInt(req.params.limit) || 10;
   const stations = await Station.find({})
     .skip((page - 1) * limit)
     .limit(limit)
-    .sort({ ID: 1 });
+    .sort({ sort: sortOrder });
 
   res.send(stations);
 });

@@ -20,12 +20,15 @@ const router = express_1.default.Router();
 exports.stationRouter = router;
 // GET Stations
 router.get("/:page/:limit", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
+    const sort = ((_a = req.query.sort) === null || _a === void 0 ? void 0 : _a.toString()) || "Name";
+    const sortOrder = req.query.sortOrder === "asc" ? 1 : -1;
     const page = Number.parseInt(req.params.page) || 1;
     const limit = Number.parseInt(req.params.limit) || 10;
     const stations = yield stationSchema_1.Station.find({})
         .skip((page - 1) * limit)
         .limit(limit)
-        .sort({ ID: 1 });
+        .sort({ sort: sortOrder });
     res.send(stations);
 }));
 // Get Single Station
