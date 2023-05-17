@@ -31,7 +31,7 @@ export default function Home() {
 
   return (
     <main className={`${styles.container} center_container`}>
-      <table className={styles.journeys_table}>
+      <table className="table">
         <thead>
           <tr>
             <th>Departure Station</th>
@@ -41,18 +41,16 @@ export default function Home() {
           </tr>
         </thead>
         {journeys.map((journey: Journey) => (
-          <tbody className={styles.table_content} key={journey._id}>
+          <tbody className="table_content" key={journey._id}>
             <tr>
-              <td className={styles.large_cell}>
+              <td className="large_cell">
                 {journey["Departure station name"]}
               </td>
-              <td className={styles.large_cell}>
-                {journey["Return station name"]}
-              </td>
-              <td className={styles.small_cell}>
+              <td className="large_cell">{journey["Return station name"]}</td>
+              <td className="small_cell">
                 {(journey["Covered distance (m)"] / 1000).toFixed(2)}
               </td>
-              <td className={styles.small_cell}>
+              <td className="small_cell">
                 {date
                   .subtract(
                     new Date(journey.Return),

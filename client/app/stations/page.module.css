@@ -3,31 +3,6 @@
   flex-direction: column;
 }
 
-.journeys_table {
-  width: min(90%, 1600px);
-}
-
-.journeys_table th {
-  text-align: start;
-  padding: 0.5rem 0.3rem;
-}
-
-.table_content:nth-child(odd) {
-  background-color: var(--secondary-color);
-}
-
-.table_content td {
-  padding: 0.3rem;
-}
-
-.small_cell {
-  width: 10%;
-}
-
-.large_cell {
-  width: 40%;
-}
-
 .toolbar {
   margin-top: 1rem;
 }

@@ -29,7 +29,7 @@ const Page = () => {
 
   return (
     <main className={`${styles.container} center_container`}>
-      <table className={styles.journeys_table}>
+      <table className="table">
         <thead>
           <tr>
             <th>Station</th>
@@ -37,7 +37,7 @@ const Page = () => {
           </tr>
         </thead>
         {stations.map((station: Station) => (
-          <tbody className={styles.table_content} key={station._id}>
+          <tbody className="table_content" key={station._id}>
             <tr>
               <td>{station.Name}</td>
               <td>{station.Address}</td>
