@@ -2,10 +2,10 @@
 
 #### Data import
 
-[ ] - Import data from the CSV files to a database or in-memory storage
-[ ] - Validate data before importing
-[x] - Don't import journeys that lasted for less than ten seconds
-[x] - Don't import journeys that covered distances shorter than 10 meters
+- [ ] Import data from the CSV files to a database or in-memory storage
+- [ ] Validate data before importing
+- [x] Don't import journeys that lasted for less than ten seconds
+- [x] Don't import journeys that covered distances shorter than 10 meters
 
 #### Journey list view
 
