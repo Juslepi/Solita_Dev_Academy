@@ -12,10 +12,27 @@ router.get("/:page/:limit", async (req, res) => {
   const page = Number.parseInt(req.params.page) || 1;
   const limit = Number.parseInt(req.params.limit) || 10;
 
-  const journeys = await Journey.find({})
-    .skip((page - 1) * limit)
-    .limit(limit)
-    .sort([[sortBy, sortOrder]]);
+  // TODO - Slow, need to optimize
+  const journeys = await Journey.aggregate([
+    {
+      $addFields: {
+        Duration: {
+          $divide: [
+            {
+              $subtract: [
+                { $dateFromString: { dateString: "$Return" } },
+                { $dateFromString: { dateString: "$Departure" } },
+              ],
+            },
+            60000,
+          ],
+        },
+      },
+    },
+    { $sort: { [sortBy]: sortOrder } },
+    { $skip: (page - 1) * limit },
+    { $limit: limit },
+  ]);
 
   res.send(journeys);
 });

@@ -25,9 +25,26 @@ router.get("/:page/:limit", (req, res) => __awaiter(void 0, void 0, void 0, func
     const sortOrder = req.query.sortOrder === "desc" ? -1 : 1;
     const page = Number.parseInt(req.params.page) || 1;
     const limit = Number.parseInt(req.params.limit) || 10;
-    const journeys = yield journeySchema_1.Journey.find({})
-        .skip((page - 1) * limit)
-        .limit(limit)
-        .sort([[sortBy, sortOrder]]);
+    // TODO - Slow, need to optimize
+    const journeys = yield journeySchema_1.Journey.aggregate([
+        {
+            $addFields: {
+                Duration: {
+                    $divide: [
+                        {
+                            $subtract: [
+                                { $dateFromString: { dateString: "$Return" } },
+                                { $dateFromString: { dateString: "$Departure" } },
+                            ],
+                        },
+                        60000,
+                    ],
+                },
+            },
+        },
+        { $sort: { [sortBy]: sortOrder } },
+        { $skip: (page - 1) * limit },
+        { $limit: limit },
+    ]);
     res.send(journeys);
 }));
