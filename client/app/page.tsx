@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import date from "date-and-time";
+import useSorting from "./hooks/sorting";
 import styles from "./page.module.css";
 
 export type Journey = {
@@ -18,46 +19,36 @@ export type Journey = {
 export default function Home() {
   const [page, setPage] = useState(1);
   const [journeys, setJourneys] = useState<Journey[]>([]);
-  const [sorting, setSorting] = useState({
-    sort: "Name",
-    sortOrder: "asc",
-  });
+  const { sortBy, sortOrder, changeSorting } = useSorting(
+    "Departure+station+name"
+  );
 
   useEffect(() => {
     const getJourneys = async () => {
       const res = await axios.get(
-        `http://localhost:3001/journeys/${page}/10?sort=${sorting.sort}&sortOrder=${sorting.sortOrder}`
+        `http://localhost:3001/journeys/${page}/10?sortBy=${sortBy}&sortOrder=${sortOrder}`
       );
       setJourneys(res.data);
     };
 
     getJourneys();
-  }, [page, sorting]);
+  }, [page, sortBy, sortOrder]);
 
-  // TODO - Look into this beauty
-  const sortResults = (sortBy: string) => {
-    if (sorting.sort === sortBy) {
-      const newOrder = sorting.sortOrder === "asc" ? "desc" : "asc";
-      setSorting({ ...sorting, sortOrder: newOrder });
-    } else {
-      setSorting({ ...sorting, sort: sortBy });
-    }
-  };
   return (
     <main className={`${styles.container} center_container`}>
       <table className="table">
         <thead>
           <tr>
-            <th onClick={() => sortResults("Departure+station+name")}>
+            <th onClick={() => changeSorting("Departure+station+name")}>
               Departure Station
             </th>
-            <th onClick={() => sortResults("Return+station+name")}>
+            <th onClick={() => changeSorting("Return+station+name")}>
               Return Station
             </th>
-            <th onClick={() => sortResults("Covered+distance+(m)")}>
+            <th onClick={() => changeSorting("Covered+distance+(m)")}>
               Distance km.
             </th>
-            <th onClick={() => sortResults("Return+station+name")}>
+            <th onClick={() => changeSorting("Return+station+name")}>
               Duration min.
             </th>
           </tr>

@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import styles from "./page.module.css";
 import Link from "next/link";
+import useSorting from "../hooks/sorting";
 
 export interface Station {
   _id: string;
@@ -17,39 +18,26 @@ export interface Station {
 const Page = () => {
   const [page, setPage] = useState(1);
   const [stations, setStations] = useState<Station[]>([]);
-  const [sorting, setSorting] = useState({
-    sort: "Name",
-    sortOrder: "asc",
-  });
+  const { sortBy, sortOrder, changeSorting } = useSorting("Name");
 
   useEffect(() => {
     const getStations = async () => {
       const res = await axios.get(
-        `http://localhost:3001/stations/${page}/10?sort=${sorting.sort}&sortOrder=${sorting.sortOrder}`
+        `http://localhost:3001/stations/${page}/10?sortBy=${sortBy}&sortOrder=${sortOrder}`
       );
       setStations(res.data);
     };
 
     getStations();
-  }, [page, sorting]);
-
-  // TODO - Look into this beauty
-  const sortResults = (sortBy: string) => {
-    if (sorting.sort === sortBy) {
-      const newOrder = sorting.sortOrder === "asc" ? "desc" : "asc";
-      setSorting({ ...sorting, sortOrder: newOrder });
-    } else {
-      setSorting({ ...sorting, sort: sortBy });
-    }
-  };
+  }, [page, sortBy, sortOrder]);
 
   return (
     <main className={`${styles.container} center_container`}>
       <table className="table">
         <thead>
           <tr>
-            <th onClick={() => sortResults("Name")}>Station</th>
-            <th onClick={() => sortResults("Address")}>Address</th>
+            <th onClick={() => changeSorting("Name")}>Station</th>
+            <th onClick={() => changeSorting("Address")}>Address</th>
           </tr>
         </thead>
         {stations.map((station: Station) => (
