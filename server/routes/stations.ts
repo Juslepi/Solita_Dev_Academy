@@ -6,7 +6,7 @@ const router = express.Router();
 
 // GET Stations
 router.get("/:page/:limit", async (req, res) => {
-  const sort = req.query.sort?.toString() || "Name";
+  const sortBy = req.query.sortBy?.toString() || "Name";
   const sortOrder = req.query.sortOrder === "desc" ? -1 : 1;
 
   const page = Number.parseInt(req.params.page) || 1;
@@ -14,7 +14,7 @@ router.get("/:page/:limit", async (req, res) => {
   const stations = await Station.find({})
     .skip((page - 1) * limit)
     .limit(limit)
-    .sort([[sort, sortOrder]]);
+    .sort([[sortBy, sortOrder]]);
 
   res.send(stations);
 });
