@@ -43,9 +43,10 @@ const Page = () => {
         {stations.map((station: Station) => (
           <tbody className="table_content" key={station._id}>
             <tr>
-              <Link href={`/stations/${station.ID}`}>
-                <td className="large_cell">{station.Name}</td>
-              </Link>
+              <td className="large_cell">
+                <Link href={`/stations/${station.ID}`}>{station.Name}</Link>
+              </td>
+
               <td className="large_cell">{station.Address}</td>
             </tr>
           </tbody>
