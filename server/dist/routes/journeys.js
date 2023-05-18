@@ -20,15 +20,14 @@ exports.journeyRouter = router;
 // GET journeys
 router.get("/:page/:limit", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
-    let sort = ((_a = req.query.sort) === null || _a === void 0 ? void 0 : _a.toString()) || "Name";
-    sort = sort.replace("+", " ");
-    console.log(sort);
+    let sortBy = ((_a = req.query.sortBy) === null || _a === void 0 ? void 0 : _a.toString()) || "Name";
+    sortBy = sortBy.replace("+", " ");
     const sortOrder = req.query.sortOrder === "desc" ? -1 : 1;
     const page = Number.parseInt(req.params.page) || 1;
     const limit = Number.parseInt(req.params.limit) || 10;
     const journeys = yield journeySchema_1.Journey.find({})
         .skip((page - 1) * limit)
         .limit(limit)
-        .sort([[sort, sortOrder]]);
+        .sort([[sortBy, sortOrder]]);
     res.send(journeys);
 }));

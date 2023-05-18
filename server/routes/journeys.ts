@@ -5,9 +5,8 @@ const router = express.Router();
 
 // GET journeys
 router.get("/:page/:limit", async (req, res) => {
-  let sort = req.query.sort?.toString() || "Name";
-  sort = sort.replace("+", " ");
-  console.log(sort);
+  let sortBy = req.query.sortBy?.toString() || "Name";
+  sortBy = sortBy.replace("+", " ");
 
   const sortOrder = req.query.sortOrder === "desc" ? -1 : 1;
   const page = Number.parseInt(req.params.page) || 1;
@@ -16,7 +15,7 @@ router.get("/:page/:limit", async (req, res) => {
   const journeys = await Journey.find({})
     .skip((page - 1) * limit)
     .limit(limit)
-    .sort([[sort, sortOrder]]);
+    .sort([[sortBy, sortOrder]]);
 
   res.send(journeys);
 });
