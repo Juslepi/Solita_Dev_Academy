@@ -1,6 +1,6 @@
 ## Getting started
 
-Instructions to get the project running globally
+Instructions to get the project running locally
 
 ## Prerequisites
 
