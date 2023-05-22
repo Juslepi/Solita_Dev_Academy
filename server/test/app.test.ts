@@ -1,12 +1,9 @@
 import chai from "chai";
 import chaiHttp from "chai-http";
 import { app } from "../server";
-import Mocha = require("mocha");
 
 chai.use(chaiHttp);
 const { expect } = chai;
-
-const mocha = new Mocha();
 
 describe("Journey Router", () => {
   it("should return journeys", async () => {
@@ -24,4 +21,10 @@ describe("Station Router Router", () => {
     expect(res).to.have.status(200);
     expect(res.body).to.be.an("array");
   }).timeout(10000);
+
+  it("should return single station", async () => {
+    const res = await chai.request(app).get("/stations/1");
+    expect(res).to.have.status(200);
+    expect(res.body).to.be.an("object");
+  });
 });
