@@ -32,6 +32,22 @@ app.use("*", (req, res) => {
   res.send("Page not found").status(404);
 });
 
-app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log(`Listening to port: ${port}`);
 });
+
+process.on("SIGINT", async () => {
+  try {
+    await mongoose.connection.close();
+    console.log("Mongoose connection closed.");
+    server.close(() => {
+      console.log("Server closed.");
+      process.exit(0);
+    });
+  } catch (error) {
+    console.error("Error occurred while closing Mongoose connection:", error);
+    process.exit(1);
+  }
+});
+
+export { app };
