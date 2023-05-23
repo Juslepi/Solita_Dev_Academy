@@ -27,4 +27,9 @@ describe("Station Router Router", () => {
     expect(res).to.have.status(200);
     expect(res.body).to.be.an("object");
   });
+
+  it("should return 400", async () => {
+    const res = await chai.request(app).get("/stations/invalidId");
+    expect(res).to.have.status(400);
+  });
 });
