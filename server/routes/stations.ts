@@ -29,7 +29,7 @@ router.get("/:id", async (req, res) => {
   const station = await Station.findOne({ ID: id });
 
   if (station === null || station === undefined) {
-    return res.send({ msg: "Station not found" }).status(404);
+    return res.status(404).send({ msg: "Station not found" });
   }
 
   // Journeys starting from location
@@ -46,7 +46,7 @@ router.get("/:id", async (req, res) => {
   }).count();
   station.ReturnsCount = returnsCount;
 
-  res.send(station).status(200);
+  res.send(station);
 });
 
 export { router as stationRouter };

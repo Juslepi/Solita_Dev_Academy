@@ -29,7 +29,7 @@ app.use(cors());
 app.use("/journeys", journeyRouter);
 app.use("/stations", stationRouter);
 app.use("*", (req, res) => {
-  res.send("Page not found").status(404);
+  res.status(404).send("Page not found");
 });
 
 const server = app.listen(port, () => {

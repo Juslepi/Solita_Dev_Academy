@@ -33,10 +33,13 @@ router.get("/:page/:limit", (req, res) => __awaiter(void 0, void 0, void 0, func
 }));
 // Get Single Station
 router.get("/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const id = Number.parseInt(req.params.id) || 1;
+    const id = Number.parseInt(req.params.id);
+    if (isNaN(id)) {
+        return res.status(400).send({ msg: "Invalid query" });
+    }
     const station = yield stationSchema_1.Station.findOne({ ID: id });
     if (station === null || station === undefined) {
-        return res.send({ msg: "Station not found" }).status(404);
+        return res.status(404).send({ msg: "Station not found" });
     }
     // Journeys starting from location
     const departuresCount = yield journeySchema_1.Journey.find({
@@ -50,5 +53,5 @@ router.get("/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         ["Return station id"]: id,
     }).count();
     station.ReturnsCount = returnsCount;
-    res.send(station).status(200);
+    res.send(station);
 }));

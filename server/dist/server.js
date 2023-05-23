@@ -66,6 +66,20 @@ app.use("/stations", stations_1.stationRouter);
 app.use("*", (req, res) => {
     res.send("Page not found").status(404);
 });
-app.listen(port, () => {
+const server = app.listen(port, () => {
     console.log(`Listening to port: ${port}`);
 });
+process.on("SIGINT", () => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        yield mongoose_1.default.connection.close();
+        console.log("Mongoose connection closed.");
+        server.close(() => {
+            console.log("Server closed.");
+            process.exit(0);
+        });
+    }
+    catch (error) {
+        console.error("Error occurred while closing Mongoose connection:", error);
+        process.exit(1);
+    }
+}));
