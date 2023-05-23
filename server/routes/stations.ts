@@ -21,7 +21,11 @@ router.get("/:page/:limit", async (req, res) => {
 
 // Get Single Station
 router.get("/:id", async (req, res) => {
-  const id = Number.parseInt(req.params.id) || 1;
+  const id = Number.parseInt(req.params.id);
+  if (isNaN(id)) {
+    return res.status(400).send({ msg: "Invalid query" });
+  }
+
   const station = await Station.findOne({ ID: id });
 
   if (station === null || station === undefined) {
