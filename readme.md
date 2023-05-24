@@ -11,21 +11,27 @@ Instructions to get the project running locally
 
 ## Client
 
+Create ./client/.env.local file with following contents
+
+```
+NEXT_PUBLIC_GOOGLE_KEY=<YOUR_API_KEY>
+```
+
 ```
 cd ./client
 npm install
 npm run dev
 ```
 
-Create .env.local file with following contents
-
-```
-NEXT_PUBLIC_GOOGLE_KEY=<YOUR_API_KEY>
-```
-
 Get free api key <a href="https://developers.google.com/maps/documentation/embed/get-api-key">here</a>
 
 ## Server
+
+Create ./server/.env file with following contents
+
+```
+MONGODB_URI=<MONGO_URI>
+```
 
 ```
 cd ./server
@@ -47,8 +53,8 @@ npm run dev
 - [x] List journeys
 - [x] Pagination
 - [x] Ordering
-- [] Searching
-- [] Filtering
+- [ ] Searching
+- [ ] Filtering
 - [x] For each journey show departure and return stations, covered distance in kilometers and duration in minutes
 
 #### Station List
@@ -58,11 +64,11 @@ npm run dev
 - [x] Total number of journeys starting from the station
 - [x] Total number of journeys ending at the station
 - [x] Station location on the map
-- [] The average distance of a journey starting from the station
-- [] The average distance of a journey ending at the station
-- [] Top 5 most popular return stations for journeys starting from the station
-- [] Top 5 most popular departure stations for journeys ending at the station
-- [] Ability to filter all the calculations per month
+- [ ] The average distance of a journey starting from the station
+- [ ] The average distance of a journey ending at the station
+- [ ] Top 5 most popular return stations for journeys starting from the station
+- [ ] Top 5 most popular departure stations for journeys ending at the station
+- [ ] Ability to filter all the calculations per month
 
 ## Built With
 
