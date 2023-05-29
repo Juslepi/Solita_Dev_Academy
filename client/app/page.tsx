@@ -76,7 +76,7 @@ export default function Home() {
         >
           {"<"}
         </button>
-        Page: {page}
+        <span>Page: {page}</span>
         <button onClick={() => setPage((currentPage) => currentPage + 1)}>
           {">"}
         </button>

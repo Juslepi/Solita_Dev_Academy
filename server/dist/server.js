@@ -64,7 +64,7 @@ app.use(cors());
 app.use("/journeys", journeys_1.journeyRouter);
 app.use("/stations", stations_1.stationRouter);
 app.use("*", (req, res) => {
-    res.send("Page not found").status(404);
+    res.status(404).send("Page not found");
 });
 const server = app.listen(port, () => {
     console.log(`Listening to port: ${port}`);
