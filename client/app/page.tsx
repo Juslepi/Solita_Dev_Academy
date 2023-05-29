@@ -28,8 +28,6 @@ export default function Home() {
       const res = await axios.get(
         `http://localhost:3001/journeys/${page}/10?sortBy=${sortBy}&sortOrder=${sortOrder}`
       );
-      console.log(res.data);
-
       setJourneys(res.data);
     };
 
