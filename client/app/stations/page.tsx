@@ -26,7 +26,7 @@ const Page = () => {
       setStatus("");
       try {
         const res = await axios.get(
-          `http://localhost:3001/stations/${page}/10?sortBy=${sortBy}&sortOrder=${sortOrder}`
+          `http://localhost:3001/stations/${page}/30?sortBy=${sortBy}&sortOrder=${sortOrder}`
         );
         setStations(res.data);
       } catch (e) {
@@ -37,13 +37,18 @@ const Page = () => {
     getStations();
   }, [page, sortBy, sortOrder]);
 
+  const sort = (sortBy: string) => {
+    changeSorting(sortBy);
+    setPage(1);
+  };
+
   return (
     <main className={`${styles.container} center_container`}>
       <table className="table">
         <thead>
           <tr>
-            <th onClick={() => changeSorting("Name")}>Station</th>
-            <th onClick={() => changeSorting("Address")}>Address</th>
+            <th onClick={() => sort("Name")}>Station</th>
+            <th onClick={() => sort("Address")}>Address</th>
           </tr>
         </thead>
         {stations.map((station: Station) => (

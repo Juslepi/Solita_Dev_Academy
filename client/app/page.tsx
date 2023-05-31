@@ -44,6 +44,11 @@ export default function Home() {
     getJourneys();
   }, [page, sortBy, sortOrder]);
 
+  const sort = (sortBy: string) => {
+    changeSorting(sortBy);
+    setPage(1);
+  };
+
   return (
     <main className={`${styles.container} center_container`}>
       {isLoading ? (
@@ -60,16 +65,14 @@ export default function Home() {
         <table className="table">
           <thead>
             <tr>
-              <th onClick={() => changeSorting("Departure+station+name")}>
+              <th onClick={() => sort("Departure+station+name")}>
                 Departure Station
               </th>
-              <th onClick={() => changeSorting("Return+station+name")}>
+              <th onClick={() => sort("Return+station+name")}>
                 Return Station
               </th>
-              <th onClick={() => changeSorting("Covered+distance+(m)")}>
-                Distance km.
-              </th>
-              <th onClick={() => changeSorting("Duration")}>Duration min.</th>
+              <th onClick={() => sort("Covered+distance+(m)")}>Distance km.</th>
+              <th onClick={() => sort("Duration")}>Duration min.</th>
             </tr>
           </thead>
 
