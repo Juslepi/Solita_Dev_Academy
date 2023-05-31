@@ -49,6 +49,7 @@ ul {
 }
 
 .table th {
+  cursor: pointer;
   text-align: start;
   padding: 0.5rem 0.3rem;
 }
