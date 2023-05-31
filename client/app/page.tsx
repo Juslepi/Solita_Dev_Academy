@@ -4,6 +4,7 @@ import axios from "axios";
 import useSorting from "./hooks/sorting";
 import { ThreeDots } from "react-loader-spinner";
 import styles from "./page.module.css";
+import Toolbar from "./components/Toolbar";
 
 export type Journey = {
   _id: string;
@@ -94,21 +95,7 @@ export default function Home() {
       )}
 
       {status ? status : ""}
-      <div className={styles.toolbar}>
-        <button
-          onClick={() =>
-            setPage((currentPage) =>
-              currentPage > 1 ? currentPage - 1 : currentPage
-            )
-          }
-        >
-          {"<"}
-        </button>
-        <span>Page: {page}</span>
-        <button onClick={() => setPage((currentPage) => currentPage + 1)}>
-          {">"}
-        </button>
-      </div>
+      <Toolbar page={page} setPage={setPage} />
     </main>
   );
 }

@@ -2,11 +2,3 @@
   display: flex;
   flex-direction: column;
 }
-
-.toolbar {
-  margin-top: 1rem;
-}
-
-.toolbar button {
-  font-size: 1.15rem;
-}

@@ -4,6 +4,7 @@ import axios from "axios";
 import styles from "./page.module.css";
 import Link from "next/link";
 import useSorting from "../hooks/sorting";
+import Toolbar from "../components/Toolbar";
 
 export interface Station {
   _id: string;
@@ -63,22 +64,8 @@ const Page = () => {
           </tbody>
         ))}
       </table>
+      <Toolbar page={page} setPage={setPage} />
       {status ? status : ""}
-      <div className={styles.toolbar}>
-        <button
-          onClick={() =>
-            setPage((currentPage) =>
-              currentPage > 1 ? currentPage - 1 : currentPage
-            )
-          }
-        >
-          {"<"}
-        </button>
-        Page: {page}
-        <button onClick={() => setPage((currentPage) => currentPage + 1)}>
-          {">"}
-        </button>
-      </div>
     </main>
   );
 };
