@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import useSorting from "./hooks/sorting";
+import { ThreeDots } from "react-loader-spinner";
 import styles from "./page.module.css";
 
 export type Journey = {
@@ -19,6 +20,7 @@ export type Journey = {
 export default function Home() {
   const [page, setPage] = useState(1);
   const [journeys, setJourneys] = useState<Journey[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
   const [status, setStatus] = useState("");
   const { sortBy, sortOrder, changeSorting } = useSorting(
     "Departure+station+name"
@@ -26,15 +28,17 @@ export default function Home() {
 
   useEffect(() => {
     const getJourneys = async () => {
+      setIsLoading(true);
       setStatus("");
       try {
         const res = await axios.get(
-          `http://localhost:3001/journeys/${page}/10?sortBy=${sortBy}&sortOrder=${sortOrder}`
+          `http://localhost:3001/journeys/${page}/30?sortBy=${sortBy}&sortOrder=${sortOrder}`
         );
         setJourneys(res.data);
       } catch (e) {
         setStatus("Failed to fetch data");
       }
+      setIsLoading(false);
     };
 
     getJourneys();
@@ -42,36 +46,50 @@ export default function Home() {
 
   return (
     <main className={`${styles.container} center_container`}>
-      <table className="table">
-        <thead>
-          <tr>
-            <th onClick={() => changeSorting("Departure+station+name")}>
-              Departure Station
-            </th>
-            <th onClick={() => changeSorting("Return+station+name")}>
-              Return Station
-            </th>
-            <th onClick={() => changeSorting("Covered+distance+(m)")}>
-              Distance km.
-            </th>
-            <th onClick={() => changeSorting("Duration")}>Duration min.</th>
-          </tr>
-        </thead>
-        {journeys.map((journey: Journey) => (
-          <tbody className="table_content" key={journey._id}>
+      {isLoading ? (
+        <div className="center_container">
+          <ThreeDots
+            height="80"
+            width="80"
+            color="blue"
+            ariaLabel="loading"
+            wrapperClass="table"
+          />
+        </div>
+      ) : (
+        <table className="table">
+          <thead>
             <tr>
-              <td className="large_cell">
-                {journey["Departure station name"]}
-              </td>
-              <td className="large_cell">{journey["Return station name"]}</td>
-              <td className="small_cell">
-                {(journey["Covered distance (m)"] / 1000).toFixed(2)}
-              </td>
-              <td className="small_cell">{journey.Duration.toFixed(1)}</td>
+              <th onClick={() => changeSorting("Departure+station+name")}>
+                Departure Station
+              </th>
+              <th onClick={() => changeSorting("Return+station+name")}>
+                Return Station
+              </th>
+              <th onClick={() => changeSorting("Covered+distance+(m)")}>
+                Distance km.
+              </th>
+              <th onClick={() => changeSorting("Duration")}>Duration min.</th>
             </tr>
-          </tbody>
-        ))}
-      </table>
+          </thead>
+
+          {journeys.map((journey: Journey) => (
+            <tbody className="table_content" key={journey._id}>
+              <tr>
+                <td className="large_cell">
+                  {journey["Departure station name"]}
+                </td>
+                <td className="large_cell">{journey["Return station name"]}</td>
+                <td className="small_cell">
+                  {(journey["Covered distance (m)"] / 1000).toFixed(2)}
+                </td>
+                <td className="small_cell">{journey.Duration.toFixed(1)}</td>
+              </tr>
+            </tbody>
+          ))}
+        </table>
+      )}
+
       {status ? status : ""}
       <div className={styles.toolbar}>
         <button
