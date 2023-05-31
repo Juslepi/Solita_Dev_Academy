@@ -18,14 +18,20 @@ export interface Station {
 const Page = () => {
   const [page, setPage] = useState(1);
   const [stations, setStations] = useState<Station[]>([]);
+  const [status, setStatus] = useState("second");
   const { sortBy, sortOrder, changeSorting } = useSorting("Name");
 
   useEffect(() => {
     const getStations = async () => {
-      const res = await axios.get(
-        `http://localhost:3001/stations/${page}/10?sortBy=${sortBy}&sortOrder=${sortOrder}`
-      );
-      setStations(res.data);
+      setStatus("");
+      try {
+        const res = await axios.get(
+          `http://localhost:3001/stations/${page}/10?sortBy=${sortBy}&sortOrder=${sortOrder}`
+        );
+        setStations(res.data);
+      } catch (e) {
+        setStatus("Failed to fetch data");
+      }
     };
 
     getStations();
@@ -52,6 +58,7 @@ const Page = () => {
           </tbody>
         ))}
       </table>
+      {status ? status : ""}
       <div className={styles.toolbar}>
         <button
           onClick={() =>

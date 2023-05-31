@@ -19,16 +19,22 @@ export type Journey = {
 export default function Home() {
   const [page, setPage] = useState(1);
   const [journeys, setJourneys] = useState<Journey[]>([]);
+  const [status, setStatus] = useState("");
   const { sortBy, sortOrder, changeSorting } = useSorting(
     "Departure+station+name"
   );
 
   useEffect(() => {
     const getJourneys = async () => {
-      const res = await axios.get(
-        `http://localhost:3001/journeys/${page}/10?sortBy=${sortBy}&sortOrder=${sortOrder}`
-      );
-      setJourneys(res.data);
+      setStatus("");
+      try {
+        const res = await axios.get(
+          `http://localhost:3001/journeys/${page}/10?sortBy=${sortBy}&sortOrder=${sortOrder}`
+        );
+        setJourneys(res.data);
+      } catch (e) {
+        setStatus("Failed to fetch data");
+      }
     };
 
     getJourneys();
@@ -66,6 +72,7 @@ export default function Home() {
           </tbody>
         ))}
       </table>
+      {status ? status : ""}
       <div className={styles.toolbar}>
         <button
           onClick={() =>
