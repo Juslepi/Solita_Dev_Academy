@@ -14,6 +14,8 @@ export interface Station {
   Capacity: number;
   x: number;
   y: number;
+  AvgDeparturingLength: number;
+  AvgReturningLength: number;
 }
 
 const Page = () => {

@@ -10,7 +10,16 @@ type PageProps = {
 
 const page = async ({ params }: PageProps) => {
   const stationData = await getStation(params.id);
-  const { Name, Address, DeparturesCount, ReturnsCount, x, y } = stationData;
+  const {
+    Name,
+    Address,
+    DeparturesCount,
+    ReturnsCount,
+    x,
+    y,
+    AvgDeparturingLength,
+    AvgReturningLength,
+  } = stationData;
 
   return (
     <div className="center_container">
@@ -19,6 +28,14 @@ const page = async ({ params }: PageProps) => {
         <p>{Address}</p>
         <p>Departures: {DeparturesCount}</p>
         <p>Returns: {ReturnsCount}</p>
+        <p>
+          Average departuring journey length:{" "}
+          {(AvgDeparturingLength / 1000).toFixed(1)}km
+        </p>
+        <p>
+          Average returning journey length:{" "}
+          {(AvgReturningLength / 1000).toFixed(1)}km
+        </p>
         <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_KEY || ""}>
           <GoogleMap
             mapContainerStyle={{ width: "400px", height: "400px" }}
@@ -35,8 +52,12 @@ const page = async ({ params }: PageProps) => {
 };
 
 export async function getStation(id: string) {
-  const res = await fetch(`http://localhost:3001/stations/${id}`);
-  return res.json();
+  try {
+    const res = await fetch(`http://localhost:3001/stations/${id}`);
+    return res.json();
+  } catch (e) {
+    console.log(e);
+  }
 }
 
 export default page;
