@@ -26,27 +26,48 @@ router.get("/:id", async (req, res) => {
     return res.status(400).send({ msg: "Invalid query" });
   }
 
-  const station = await Station.findOne({ ID: id });
+  const station = await Station.aggregate([
+    {
+      $match: {
+        ID: id,
+      },
+    },
+    {
+      $lookup: {
+        from: "journeys",
+        localField: "ID",
+        foreignField: "Departure station id",
+        as: "Departures",
+      },
+    },
+    {
+      $lookup: {
+        from: "journeys",
+        localField: "ID",
+        foreignField: "Return station id",
+        as: "Returns",
+      },
+    },
+    {
+      $addFields: {
+        DeparturesCount: { $size: "$Departures" },
+        ReturnsCount: { $size: "$Returns" },
+        AvgDeparturingLength: { $avg: "$Departures.Covered distance (m)" },
+        AvgReturningLength: { $avg: "$Returns.Covered distance (m)" },
+      },
+    },
+    {
+      $project: {
+        Departures: 0,
+        Returns: 0,
+      },
+    },
+  ]);
 
-  if (station === null || station === undefined) {
+  if (station === null || station === undefined)
     return res.status(404).send({ msg: "Station not found" });
-  }
 
-  // Journeys starting from location
-  const departuresCount = await Journey.find({
-    ["Departure station id"]: id,
-  })
-    .count()
-    .exec();
-  station.DeparturesCount = departuresCount;
-
-  // Journeys ending at location
-  const returnsCount = await Journey.find({
-    ["Return station id"]: id,
-  }).count();
-  station.ReturnsCount = returnsCount;
-
-  res.send(station);
+  res.send(station[0]);
 });
 
 export { router as stationRouter };
