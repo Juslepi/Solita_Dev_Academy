@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
+import styles from "./page.module.css";
 
 type PageProps = {
   params: {
@@ -23,7 +24,7 @@ const page = async ({ params }: PageProps) => {
 
   return (
     <div className="center_container">
-      <div className="">
+      <div className={styles.inner_container}>
         <h3>{Name}</h3>
         <p>{Address}</p>
         <p>Departures: {DeparturesCount}</p>
@@ -45,7 +46,9 @@ const page = async ({ params }: PageProps) => {
             <Marker position={{ lat: y, lng: x }}></Marker>
           </GoogleMap>
         </LoadScript>
-        <Link href={"/stations"}>⬅ Back</Link>
+        <button>
+          <Link href={"/stations"}>⬅ Back</Link>
+        </button>
       </div>
     </div>
   );
