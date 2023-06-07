@@ -1,7 +1,7 @@
 .container {
-  position: fixed;
-  width: 100%;
+  position: sticky;
   top: 0;
+  width: 100%;
   color: rgb(253, 239, 239);
   padding: 1rem;
   display: flex;
