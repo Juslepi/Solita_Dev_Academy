@@ -18,7 +18,7 @@ const Toolbar = ({ setPage, page }: ToolbarProps) => {
       >
         {"<"}
       </button>
-      Page: {page}
+      <span>Page: {page}</span>
       <button onClick={() => setPage((currentPage) => currentPage + 1)}>
         {">"}
       </button>
