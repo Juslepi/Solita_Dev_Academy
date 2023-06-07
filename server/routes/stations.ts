@@ -1,6 +1,5 @@
 import express from "express";
 import { Station } from "../schemas/stationSchema";
-import { Journey } from "../schemas/journeySchema";
 
 const router = express.Router();
 

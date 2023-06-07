@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-const { Schema } = mongoose;
 
 const stationSchema = new mongoose.Schema({
   FID: { type: Number, required: true },
