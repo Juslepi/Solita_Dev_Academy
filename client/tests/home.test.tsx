@@ -1,7 +1,7 @@
 import React from "react";
 import { fireEvent, render } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import Home from "@/app/page";
+import Home from "@/app/journeys/page";
 
 describe("Home Page", () => {
   it("should render", () => {

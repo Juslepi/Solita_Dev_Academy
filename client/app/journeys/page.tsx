@@ -1,10 +1,10 @@
 "use client";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import useSorting from "./hooks/sorting";
+import useSorting from "../hooks/sorting";
 import { ThreeDots } from "react-loader-spinner";
 import styles from "./page.module.css";
-import Toolbar from "./components/Toolbar";
+import Toolbar from "../components/Toolbar";
 
 export type Journey = {
   _id: string;
